@@ -1,0 +1,107 @@
+{
+  "sobre": "O Camenae é um grupo de pesquisa interinstitucional certificado pelo CNPq, fundado em 2016. Reúne pesquisadores da Universidade Estadual de Alagoas (UNEAL) e da Universidade Federal do Rio de Janeiro (UFRJ), dedicados ao estudo rigoroso da cultura, língua e literatura da Antiguidade Grega e Latina.",
+  "membros": [
+    {
+      "id": 1,
+      "nome": "Douglas Gonçalves de Souza",
+      "iniciais": "DG",
+      "foto": "",
+      "cargo": "Pesquisador · Doutor",
+      "instituicao": "UNEAL",
+      "bio": "Líder UNEAL. Língua e literatura latina.",
+      "lattes": "https://lattes.cnpq.br/"
+    },
+    {
+      "id": 2,
+      "nome": "Ana Thereza Basílio Vieira",
+      "iniciais": "AT",
+      "foto": "",
+      "cargo": "Pesquisadora · Doutora",
+      "instituicao": "UFRJ",
+      "bio": "Líder UFRJ. Literatura e cultura gregas.",
+      "lattes": "https://lattes.cnpq.br/"
+    },
+    {
+      "id": 3,
+      "nome": "Livia Lindóia Paes Barreto",
+      "iniciais": "LL",
+      "foto": "",
+      "cargo": "Pesquisadora · Doutora",
+      "instituicao": "UNEAL",
+      "bio": "Recepção clássica e tradução.",
+      "lattes": "https://lattes.cnpq.br/"
+    },
+    {
+      "id": 4,
+      "nome": "Luiz Pedro da Silva Barbosa",
+      "iniciais": "LP",
+      "foto": "",
+      "cargo": "Pesquisador · Doutor",
+      "instituicao": "UNEAL",
+      "bio": "Retórica e discurso na Antiguidade.",
+      "lattes": "https://lattes.cnpq.br/"
+    },
+    {
+      "id": 5,
+      "nome": "Amanda de Lira Santos",
+      "iniciais": "AL",
+      "foto": "",
+      "cargo": "Estudante · Mestrado",
+      "instituicao": "UNEAL",
+      "bio": "Pesquisa em andamento.",
+      "lattes": "https://lattes.cnpq.br/"
+    },
+    {
+      "id": 6,
+      "nome": "Thais Montenegro do Patrocinio",
+      "iniciais": "TM",
+      "foto": "",
+      "cargo": "Estudante · Mestrado",
+      "instituicao": "UNEAL",
+      "bio": "Pesquisa em andamento.",
+      "lattes": "https://lattes.cnpq.br/"
+    }
+  ],
+  "pesquisas": [
+    {
+      "id": 1,
+      "titulo": "A arte da persuasão em Cícero: estruturas retóricas no Pro Milone",
+      "autores": "Douglas G. de Souza",
+      "ano": "2024",
+      "resumo": "Análise das estratégias argumentativas e ornamentação retórica no discurso de defesa de Milão.",
+      "linha": "gramatica",
+      "link": ""
+    },
+    {
+      "id": 2,
+      "titulo": "Mulheres e poder na tragédia grega: Medeia e Clitemnestra",
+      "autores": "Ana Thereza B. Vieira",
+      "ano": "2024",
+      "resumo": "Estudo comparativo das representações femininas de poder em Eurípides e Ésquilo.",
+      "linha": "literatura",
+      "link": ""
+    },
+    {
+      "id": 3,
+      "titulo": "Virgílio no Brasil: leituras da Eneida na literatura oitocentista",
+      "autores": "Livia L. P. Barreto",
+      "ano": "2023",
+      "resumo": "Mapeamento das apropriações do épico virgiliano em autores e periódicos brasileiros.",
+      "linha": "recepcao",
+      "link": ""
+    }
+  ],
+  "contato": {
+    "email": "gpcamenae.uneal@gmail.com",
+    "telefone": "(21) 99211-2656",
+    "endereco": "Rua Gov. Luiz Cavalcante, s/n · Sala 42 · Arapiraca, AL",
+    "cnpq": "https://dgp.cnpq.br/dgp/espelhogrupo/215769",
+    "instagram": "https://instagram.com/gp.camenae",
+    "youtube": "",
+    "whatsapp": ""
+  },
+  "admin": {
+    "email": "admin@camenae.com",
+    "senha": "camenae2024"
+  }
+}
