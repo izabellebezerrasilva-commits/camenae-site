@@ -21,6 +21,14 @@ app.use(session({
 // Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Rotas explícitas para páginas
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // Helper: ler dados
 function lerDados() {
   return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
