@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Camenae · Painel Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--pr:#1A1A18;--au:#B8963A;--auc:#D4C090;--br:#FAFAF8;--alt:#F5F2EA;--gz:#6B6B60;--bd:#E8E0CC;--vd:#2D6A4F;--vm:#52B788;--vr:#C1121F}
+body{font-family:'Inter',sans-serif;font-weight:300;background:var(--alt);color:var(--pr);min-height:100vh}
+
+/* LOGIN */
+#tela-login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--pr)}
+.login-box{background:var(--br);padding:2.5rem;width:100%;max-width:380px}
+.login-logo{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:4px;text-align:center;margin-bottom:0.25rem}
+.login-sub{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);text-align:center;margin-bottom:2rem}
+.login-box label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);display:block;margin-bottom:6px}
+.login-box input{width:100%;border:1px solid var(--bd);background:var(--br);padding:10px 12px;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:1.25rem;outline:none}
+.login-box input:focus{border-color:var(--au)}
+.btn-login{width:100%;background:var(--pr);color:var(--br);border:none;padding:12px;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.btn-login:hover{background:var(--au)}
+.erro-login{color:var(--vr);font-size:12px;text-align:center;margin-top:1rem;display:none}
+
+/* ADMIN */
+#tela-admin{display:none}
+.adm-nav{background:var(--pr);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px;border-bottom:2px solid var(--au)}
+.adm-nav-logo{font-family:'Playfair Display',serif;color:var(--auc);font-size:14px;letter-spacing:3px}
+.adm-nav-right{display:flex;align-items:center;gap:1rem}
+.adm-nav-right span{font-size:12px;color:var(--gz)}
+.btn-logout{background:transparent;border:1px solid var(--gz);color:var(--gz);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.btn-logout:hover{border-color:var(--vr);color:var(--vr)}
+
+.adm-body{max-width:860px;margin:0 auto;padding:2rem 1.5rem}
+.adm-tabs{display:flex;gap:0;border-bottom:2px solid var(--bd);margin-bottom:2rem}
+.tab{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);padding:10px 20px;cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab.active{color:var(--au);border-bottom-color:var(--au)}
+.tab:hover{color:var(--pr)}
+.painel{display:none}
+.painel.active{display:block}
+
+/* CARDS DE ITENS */
+.item-card{background:var(--br);border:1px solid var(--bd);border-left:3px solid var(--au);padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.item-info h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;margin-bottom:3px}
+.item-info p{font-size:12px;color:var(--gz);line-height:1.5}
+.item-info .tag-inst{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--au);margin-top:4px;display:block}
+.item-acoes{display:flex;gap:8px;flex-shrink:0}
+.btn-editar,.btn-excluir{border:none;padding:6px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.btn-editar{background:var(--pr);color:var(--br)}
+.btn-editar:hover{background:var(--au)}
+.btn-excluir{background:transparent;border:1px solid var(--bd);color:var(--gz)}
+.btn-excluir:hover{border-color:var(--vr);color:var(--vr)}
+
+/* FORMULÁRIO */
+.form-section{background:var(--br);border:1px solid var(--bd);padding:1.5rem;margin-bottom:2rem}
+.form-section h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:400;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--bd)}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gz)}
+.form-group input,.form-group select,.form-group textarea{border:1px solid var(--bd);background:var(--br);padding:9px 12px;font-size:13px;font-family:'Inter',sans-serif;outline:none;width:100%}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--au)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-acoes{display:flex;gap:10px;margin-top:1.25rem}
+.btn-salvar{background:var(--pr);color:var(--br);border:none;padding:10px 24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.btn-salvar:hover{background:var(--au)}
+.btn-cancelar{background:transparent;border:1px solid var(--bd);color:var(--gz);padding:10px 24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-cancelar:hover{border-color:var(--pr);color:var(--pr)}
+.btn-novo{background:transparent;border:1px solid var(--au);color:var(--au);padding:8px 20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:1.5rem;transition:all .2s}
+.btn-novo:hover{background:var(--au);color:var(--pr)}
+
+.msg-ok{background:#D8F3DC;border:1px solid var(--vm);color:var(--vd);padding:10px 14px;font-size:12px;margin-bottom:1rem;display:none}
+.msg-erro{background:#FFE0E0;border:1px solid var(--vr);color:var(--vr);padding:10px 14px;font-size:12px;margin-bottom:1rem;display:none}
+
+.secao-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--au);margin-bottom:0.5rem}
+.secao-titulo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:1.5rem}
+</style>
+</head>
+<body>
+
+<!-- TELA DE LOGIN -->
+<div id="tela-login">
+  <div class="login-box">
+    <div class="login-logo">CAMENAE</div>
+    <p class="login-sub">Painel Administrativo</p>
+    <label>E-mail</label>
+    <input type="email" id="login-email" placeholder="seu@email.com"/>
+    <label>Senha</label>
+    <input type="password" id="login-senha" placeholder="••••••••" onkeydown="if(event.key==='Enter')fazerLogin()"/>
+    <button class="btn-login" onclick="fazerLogin()">Entrar</button>
+    <p class="erro-login" id="erro-login">E-mail ou senha incorretos.</p>
+  </div>
+</div>
+
+<!-- TELA ADMIN -->
+<div id="tela-admin">
+  <nav class="adm-nav">
+    <div class="adm-nav-logo">CAMENAE · Admin</div>
+    <div class="adm-nav-right">
+      <span id="adm-email"></span>
+      <button class="btn-logout" onclick="fazerLogout()">Sair</button>
+    </div>
+  </nav>
+
+  <div class="adm-body">
+    <div class="adm-tabs">
+      <button class="tab active" onclick="abrirTab('membros',this)">Membros</button>
+      <button class="tab" onclick="abrirTab('pesquisas',this)">Pesquisas</button>
+      <button class="tab" onclick="abrirTab('contato',this)">Contato</button>
+      <button class="tab" onclick="abrirTab('sobre',this)">Sobre</button>
+      <button class="tab" onclick="abrirTab('senha',this)">Senha</button>
+    </div>
+
+    <!-- MEMBROS -->
+    <div class="painel active" id="painel-membros">
+      <p class="secao-label">Equipe</p>
+      <h2 class="secao-titulo">Integrantes</h2>
+      <div class="msg-ok" id="ok-membros">Salvo com sucesso!</div>
+      <div class="msg-erro" id="erro-membros"></div>
+      <button class="btn-novo" onclick="novoMembro()">+ Adicionar membro</button>
+
+      <div class="form-section" id="form-membro" style="display:none">
+        <h3 id="form-membro-titulo">Novo membro</h3>
+        <input type="hidden" id="membro-id"/>
+        <div class="form-grid">
+          <div class="form-group"><label>Nome completo</label><input id="membro-nome" type="text"/></div>
+          <div class="form-group"><label>Iniciais (para avatar)</label><input id="membro-iniciais" type="text" maxlength="2"/></div>
+          <div class="form-group"><label>Cargo / Nível</label><input id="membro-cargo" type="text" placeholder="Ex: Pesquisadora · Doutora"/></div>
+          <div class="form-group"><label>Instituição</label>
+            <select id="membro-instituicao">
+              <option value="UNEAL">UNEAL</option>
+              <option value="UFRJ">UFRJ</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Mini bio</label><textarea id="membro-bio"></textarea></div>
+          <div class="form-group full"><label>Link da foto (URL)</label><input id="membro-foto" type="url" placeholder="https://..."/></div>
+          <div class="form-group full"><label>Link do Lattes</label><input id="membro-lattes" type="url" placeholder="https://lattes.cnpq.br/..."/></div>
+        </div>
+        <div class="form-acoes">
+          <button class="btn-salvar" onclick="salvarMembro()">Salvar</button>
+          <button class="btn-cancelar" onclick="cancelarForm('form-membro')">Cancelar</button>
+        </div>
+      </div>
+
+      <div id="lista-membros"></div>
+    </div>
+
+    <!-- PESQUISAS -->
+    <div class="painel" id="painel-pesquisas">
+      <p class="secao-label">Publicações</p>
+      <h2 class="secao-titulo">Pesquisas</h2>
+      <div class="msg-ok" id="ok-pesquisas">Salvo com sucesso!</div>
+      <div class="msg-erro" id="erro-pesquisas"></div>
+      <button class="btn-novo" onclick="novaPesquisa()">+ Adicionar pesquisa</button>
+
+      <div class="form-section" id="form-pesquisa" style="display:none">
+        <h3 id="form-pesquisa-titulo">Nova pesquisa</h3>
+        <input type="hidden" id="pesquisa-id"/>
+        <div class="form-grid">
+          <div class="form-group full"><label>Título</label><input id="pesquisa-titulo" type="text"/></div>
+          <div class="form-group"><label>Autores</label><input id="pesquisa-autores" type="text"/></div>
+          <div class="form-group"><label>Ano</label><input id="pesquisa-ano" type="text" maxlength="4"/></div>
+          <div class="form-group"><label>Linha de pesquisa</label>
+            <select id="pesquisa-linha">
+              <option value="gramatica">Gramática, Retórica e Discurso</option>
+              <option value="literatura">Literatura, Cultura e Sociedade</option>
+              <option value="recepcao">Recepção da Cultura Greco-Romana</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Link (opcional)</label><input id="pesquisa-link" type="url" placeholder="https://..."/></div>
+          <div class="form-group full"><label>Resumo</label><textarea id="pesquisa-resumo"></textarea></div>
+        </div>
+        <div class="form-acoes">
+          <button class="btn-salvar" onclick="salvarPesquisa()">Salvar</button>
+          <button class="btn-cancelar" onclick="cancelarForm('form-pesquisa')">Cancelar</button>
+        </div>
+      </div>
+
+      <div id="lista-pesquisas"></div>
+    </div>
+
+    <!-- CONTATO -->
+    <div class="painel" id="painel-contato">
+      <p class="secao-label">Informações</p>
+      <h2 class="secao-titulo">Contato</h2>
+      <div class="msg-ok" id="ok-contato">Salvo com sucesso!</div>
+      <div class="msg-erro" id="erro-contato"></div>
+      <div class="form-section">
+        <div class="form-grid">
+          <div class="form-group"><label>E-mail</label><input id="contato-email" type="email"/></div>
+          <div class="form-group"><label>Telefone</label><input id="contato-telefone" type="text"/></div>
+          <div class="form-group full"><label>Endereço</label><input id="contato-endereco" type="text"/></div>
+          <div class="form-group full"><label>Link CNPq</label><input id="contato-cnpq" type="url"/></div>
+          <div class="form-group"><label>Instagram (URL)</label><input id="contato-instagram" type="url"/></div>
+          <div class="form-group"><label>YouTube (URL)</label><input id="contato-youtube" type="url"/></div>
+          <div class="form-group"><label>WhatsApp (URL)</label><input id="contato-whatsapp" type="url"/></div>
+        </div>
+        <div class="form-acoes">
+          <button class="btn-salvar" onclick="salvarContato()">Salvar contato</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOBRE -->
+    <div class="painel" id="painel-sobre">
+      <p class="secao-label">Texto</p>
+      <h2 class="secao-titulo">Sobre o grupo</h2>
+      <div class="msg-ok" id="ok-sobre">Salvo com sucesso!</div>
+      <div class="form-section">
+        <div class="form-group">
+          <label>Texto de apresentação</label>
+          <textarea id="sobre-texto" style="min-height:160px"></textarea>
+        </div>
+        <div class="form-acoes">
+          <button class="btn-salvar" onclick="salvarSobre()">Salvar texto</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SENHA -->
+    <div class="painel" id="painel-senha">
+      <p class="secao-label">Segurança</p>
+      <h2 class="secao-titulo">Alterar senha</h2>
+      <div class="msg-ok" id="ok-senha">Senha alterada com sucesso!</div>
+      <div class="msg-erro" id="erro-senha"></div>
+      <div class="form-section" style="max-width:420px">
+        <div class="form-grid" style="grid-template-columns:1fr">
+          <div class="form-group"><label>Senha atual</label><input id="senha-atual" type="password"/></div>
+          <div class="form-group"><label>Nova senha</label><input id="senha-nova" type="password"/></div>
+          <div class="form-group"><label>Confirmar nova senha</label><input id="senha-confirma" type="password"/></div>
+        </div>
+        <div class="form-acoes">
+          <button class="btn-salvar" onclick="alterarSenha()">Alterar senha</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const linhasLabel = {
+  gramatica: 'Gramática, Retórica e Discurso',
+  literatura: 'Literatura, Cultura e Sociedade',
+  recepcao: 'Recepção da Cultura Greco-Romana'
+};
+
+// ===== AUTH =====
+async function fazerLogin() {
+  const email = document.getElementById('login-email').value;
+  const senha = document.getElementById('login-senha').value;
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ email, senha })
+  });
+  if (res.ok) {
+    document.getElementById('tela-login').style.display = 'none';
+    document.getElementById('tela-admin').style.display = 'block';
+    document.getElementById('adm-email').textContent = email;
+    carregarTudo();
+  } else {
+    document.getElementById('erro-login').style.display = 'block';
+  }
+}
+
+async function fazerLogout() {
+  await fetch('/api/logout', { method: 'POST' });
+  location.reload();
+}
+
+// ===== TABS =====
+function abrirTab(nome, btn) {
+  document.querySelectorAll('.painel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('painel-' + nome).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===== CARREGAR TUDO =====
+async function carregarTudo() {
+  await Promise.all([carregarMembros(), carregarPesquisas(), carregarContato(), carregarSobre()]);
+}
+
+// ===== MENSAGENS =====
+function mostrarOk(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+function mostrarErro(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+// ===== MEMBROS =====
+async function carregarMembros() {
+  const res = await fetch('/api/admin/membros');
+  const membros = await res.json();
+  const lista = document.getElementById('lista-membros');
+  lista.innerHTML = membros.map(m => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4>${m.nome}</h4>
+        <p>${m.cargo}</p>
+        <span class="tag-inst">${m.instituicao}</span>
+      </div>
+      <div class="item-acoes">
+        <button class="btn-editar" onclick='editarMembro(${JSON.stringify(m)})'>Editar</button>
+        <button class="btn-excluir" onclick="excluirMembro(${m.id})">Excluir</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function novoMembro() {
+  document.getElementById('form-membro-titulo').textContent = 'Novo membro';
+  document.getElementById('membro-id').value = '';
+  ['nome','iniciais','cargo','bio','foto','lattes'].forEach(f => document.getElementById('membro-'+f).value = '');
+  document.getElementById('membro-instituicao').value = 'UNEAL';
+  document.getElementById('form-membro').style.display = 'block';
+}
+
+function editarMembro(m) {
+  document.getElementById('form-membro-titulo').textContent = 'Editar membro';
+  document.getElementById('membro-id').value = m.id;
+  document.getElementById('membro-nome').value = m.nome || '';
+  document.getElementById('membro-iniciais').value = m.iniciais || '';
+  document.getElementById('membro-cargo').value = m.cargo || '';
+  document.getElementById('membro-instituicao').value = m.instituicao || 'UNEAL';
+  document.getElementById('membro-bio').value = m.bio || '';
+  document.getElementById('membro-foto').value = m.foto || '';
+  document.getElementById('membro-lattes').value = m.lattes || '';
+  document.getElementById('form-membro').style.display = 'block';
+}
+
+async function salvarMembro() {
+  const id = document.getElementById('membro-id').value;
+  const dados = {
+    nome: document.getElementById('membro-nome').value,
+    iniciais: document.getElementById('membro-iniciais').value,
+    cargo: document.getElementById('membro-cargo').value,
+    instituicao: document.getElementById('membro-instituicao').value,
+    bio: document.getElementById('membro-bio').value,
+    foto: document.getElementById('membro-foto').value,
+    lattes: document.getElementById('membro-lattes').value
+  };
+  const url = id ? `/api/admin/membros/${id}` : '/api/admin/membros';
+  const method = id ? 'PUT' : 'POST';
+  const res = await fetch(url, { method, headers: {'Content-Type':'application/json'}, body: JSON.stringify(dados) });
+  if (res.ok) {
+    cancelarForm('form-membro');
+    await carregarMembros();
+    mostrarOk('ok-membros');
+  } else {
+    mostrarErro('erro-membros', 'Erro ao salvar.');
+  }
+}
+
+async function excluirMembro(id) {
+  if (!confirm('Excluir este membro?')) return;
+  await fetch(`/api/admin/membros/${id}`, { method: 'DELETE' });
+  await carregarMembros();
+  mostrarOk('ok-membros');
+}
+
+// ===== PESQUISAS =====
+async function carregarPesquisas() {
+  const res = await fetch('/api/admin/pesquisas');
+  const pesquisas = await res.json();
+  const lista = document.getElementById('lista-pesquisas');
+  lista.innerHTML = pesquisas.map(p => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4>${p.titulo}</h4>
+        <p>${p.autores} · ${p.ano}</p>
+        <span class="tag-inst">${linhasLabel[p.linha] || p.linha}</span>
+      </div>
+      <div class="item-acoes">
+        <button class="btn-editar" onclick='editarPesquisa(${JSON.stringify(p)})'>Editar</button>
+        <button class="btn-excluir" onclick="excluirPesquisa(${p.id})">Excluir</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function novaPesquisa() {
+  document.getElementById('form-pesquisa-titulo').textContent = 'Nova pesquisa';
+  document.getElementById('pesquisa-id').value = '';
+  ['titulo','autores','ano','link','resumo'].forEach(f => document.getElementById('pesquisa-'+f).value = '');
+  document.getElementById('pesquisa-linha').value = 'gramatica';
+  document.getElementById('form-pesquisa').style.display = 'block';
+}
+
+function editarPesquisa(p) {
+  document.getElementById('form-pesquisa-titulo').textContent = 'Editar pesquisa';
+  document.getElementById('pesquisa-id').value = p.id;
+  document.getElementById('pesquisa-titulo').value = p.titulo || '';
+  document.getElementById('pesquisa-autores').value = p.autores || '';
+  document.getElementById('pesquisa-ano').value = p.ano || '';
+  document.getElementById('pesquisa-linha').value = p.linha || 'gramatica';
+  document.getElementById('pesquisa-link').value = p.link || '';
+  document.getElementById('pesquisa-resumo').value = p.resumo || '';
+  document.getElementById('form-pesquisa').style.display = 'block';
+}
+
+async function salvarPesquisa() {
+  const id = document.getElementById('pesquisa-id').value;
+  const dados = {
+    titulo: document.getElementById('pesquisa-titulo').value,
+    autores: document.getElementById('pesquisa-autores').value,
+    ano: document.getElementById('pesquisa-ano').value,
+    linha: document.getElementById('pesquisa-linha').value,
+    link: document.getElementById('pesquisa-link').value,
+    resumo: document.getElementById('pesquisa-resumo').value
+  };
+  const url = id ? `/api/admin/pesquisas/${id}` : '/api/admin/pesquisas';
+  const method = id ? 'PUT' : 'POST';
+  const res = await fetch(url, { method, headers: {'Content-Type':'application/json'}, body: JSON.stringify(dados) });
+  if (res.ok) {
+    cancelarForm('form-pesquisa');
+    await carregarPesquisas();
+    mostrarOk('ok-pesquisas');
+  } else {
+    mostrarErro('erro-pesquisas', 'Erro ao salvar.');
+  }
+}
+
+async function excluirPesquisa(id) {
+  if (!confirm('Excluir esta pesquisa?')) return;
+  await fetch(`/api/admin/pesquisas/${id}`, { method: 'DELETE' });
+  await carregarPesquisas();
+  mostrarOk('ok-pesquisas');
+}
+
+// ===== CONTATO =====
+async function carregarContato() {
+  const res = await fetch('/api/dados');
+  const dados = await res.json();
+  const c = dados.contato;
+  document.getElementById('contato-email').value = c.email || '';
+  document.getElementById('contato-telefone').value = c.telefone || '';
+  document.getElementById('contato-endereco').value = c.endereco || '';
+  document.getElementById('contato-cnpq').value = c.cnpq || '';
+  document.getElementById('contato-instagram').value = c.instagram || '';
+  document.getElementById('contato-youtube').value = c.youtube || '';
+  document.getElementById('contato-whatsapp').value = c.whatsapp || '';
+}
+
+async function salvarContato() {
+  const dados = {
+    email: document.getElementById('contato-email').value,
+    telefone: document.getElementById('contato-telefone').value,
+    endereco: document.getElementById('contato-endereco').value,
+    cnpq: document.getElementById('contato-cnpq').value,
+    instagram: document.getElementById('contato-instagram').value,
+    youtube: document.getElementById('contato-youtube').value,
+    whatsapp: document.getElementById('contato-whatsapp').value
+  };
+  const res = await fetch('/api/admin/contato', { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(dados) });
+  if (res.ok) mostrarOk('ok-contato');
+  else mostrarErro('erro-contato', 'Erro ao salvar.');
+}
+
+// ===== SOBRE =====
+async function carregarSobre() {
+  const res = await fetch('/api/dados');
+  const dados = await res.json();
+  document.getElementById('sobre-texto').value = dados.sobre || '';
+}
+
+async function salvarSobre() {
+  const sobre = document.getElementById('sobre-texto').value;
+  const res = await fetch('/api/admin/sobre', { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ sobre }) });
+  if (res.ok) mostrarOk('ok-sobre');
+}
+
+// ===== SENHA =====
+async function alterarSenha() {
+  const senhaAtual = document.getElementById('senha-atual').value;
+  const novaSenha = document.getElementById('senha-nova').value;
+  const confirma = document.getElementById('senha-confirma').value;
+  if (novaSenha !== confirma) { mostrarErro('erro-senha', 'As senhas não coincidem.'); return; }
+  if (novaSenha.length < 6) { mostrarErro('erro-senha', 'A senha deve ter pelo menos 6 caracteres.'); return; }
+  const res = await fetch('/api/admin/senha', { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ senhaAtual, novaSenha }) });
+  if (res.ok) {
+    mostrarOk('ok-senha');
+    ['senha-atual','senha-nova','senha-confirma'].forEach(id => document.getElementById(id).value = '');
+  } else {
+    mostrarErro('erro-senha', 'Senha atual incorreta.');
+  }
+}
+
+// ===== UTIL =====
+function cancelarForm(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Verificar sessão ao carregar
+window.addEventListener('load', async () => {
+  const res = await fetch('/api/sessao');
+  const { logado } = await res.json();
+  if (logado) {
+    document.getElementById('tela-login').style.display = 'none';
+    document.getElementById('tela-admin').style.display = 'block';
+    carregarTudo();
+  }
+});
+</script>
+</body>
+</html>
