@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Camenae – Cultura, Língua e Literatura Grega e Latina</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --br:#FAFAF8;--pr:#1A1A18;--au:#B8963A;--auc:#D4C090;
+  --gz:#6B6B60;--gc:#A8A89A;--alt:#F5F2EA;--bd:#E8E0CC;
+}
+body{font-family:'Inter',sans-serif;font-weight:300;background:var(--br);color:var(--pr)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--br);border-bottom:1px solid var(--auc);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase}
+.nav-links{display:flex;gap:1.75rem}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);text-decoration:none;font-weight:400}
+.nav-links a:hover{color:var(--au)}
+
+/* FRISO MEANDRO */
+.friso{width:100%;height:28px;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.friso svg{width:100%;height:28px}
+.friso-light{background-color:transparent}
+
+/* HERO */
+.hero{padding:5rem 2.5rem 4.5rem;text-align:center;background:var(--br)}
+.eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--au);margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;line-height:1.3;max-width:600px;margin:0 auto 0.5rem}
+.hero h1 em{font-style:italic;color:#5A5A50}
+.rule{width:40px;height:1px;background:var(--au);margin:1.5rem auto}
+.hero-inst{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.inst-badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);border:1px solid var(--auc);padding:5px 16px}
+.btn{display:inline-block;background:var(--pr);color:var(--br);font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:12px 32px;border:none;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;transition:background .2s}
+.btn:hover{background:var(--au)}
+
+/* SECTIONS */
+section{padding:4rem 2.5rem}
+section.alt{background:var(--alt)}
+.inner{max-width:700px;margin:0 auto}
+.lbl{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--au);margin-bottom:.5rem}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:400;margin-bottom:1.25rem}
+
+/* SOBRE */
+.sobre-text{font-size:15px;line-height:1.9;color:#3A3A30;margin-bottom:1rem}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.5rem}
+.tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);border:1px solid var(--auc);padding:5px 14px}
+
+/* UNIVERSIDADES */
+.uni-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:1.5rem}
+.uni-card{border:1px solid var(--auc);border-top:3px solid var(--au);padding:1.5rem}
+.uni-sigla{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--au);margin-bottom:.5rem}
+.uni-card h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:400;margin-bottom:.5rem}
+.uni-lider{font-size:13px;color:#3A3A30;margin-bottom:4px}
+.uni-lider span{color:var(--gz);font-size:11px}
+.uni-end{font-size:12px;color:var(--gz);margin-top:.5rem;line-height:1.6}
+
+/* LINHAS */
+.linhas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border:1px solid var(--auc);margin-top:1.5rem}
+.linha-item{padding:2rem 1.5rem;border-right:1px solid var(--auc)}
+.linha-item:last-child{border-right:none}
+.linha-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--auc);line-height:1;margin-bottom:1rem}
+.linha-item h3{font-family:'Playfair Display',serif;font-size:14px;font-weight:400;line-height:1.5;margin-bottom:.5rem}
+.linha-item p{font-size:12px;color:var(--gz);line-height:1.7}
+.linha-stats{display:flex;gap:1rem;margin-top:.75rem}
+.linha-stat{font-size:11px;color:var(--au)}
+.linha-stat span{display:block;font-size:18px;font-family:'Playfair Display',serif;color:var(--pr)}
+
+/* MEMBROS */
+.members-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;margin-top:1.5rem}
+.member{border-top:2px solid var(--pr);padding-top:1rem}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;color:var(--gz);margin-bottom:.75rem;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.member h4{font-family:'Playfair Display',serif;font-size:13px;font-weight:400;line-height:1.4;margin-bottom:3px}
+.member .role{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--au);margin-bottom:4px}
+.member .inst-tag{font-size:10px;color:var(--gz);border:1px solid var(--auc);padding:2px 8px;display:inline-block;margin-bottom:8px}
+.member .bio{font-size:11px;color:var(--gz);line-height:1.6;margin-bottom:10px}
+.lattes{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--pr);text-decoration:none;border-bottom:1px solid var(--au);padding-bottom:1px}
+.lattes:hover{color:var(--au)}
+
+/* EXTENSÃO */
+.ext-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:1.5rem}
+.ext-card{border:1px solid var(--auc);padding:1.5rem;text-align:center}
+.ext-card i{font-size:28px;color:var(--au);display:block;margin-bottom:1rem}
+.ext-card h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;margin-bottom:.5rem}
+.ext-card p{font-size:12px;color:var(--gz);line-height:1.7}
+
+/* BLOG */
+.filters{display:flex;flex-wrap:wrap;border:1px solid var(--auc);width:fit-content;margin-bottom:2rem}
+.filt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gz);padding:8px 18px;cursor:pointer;background:transparent;border:none;border-right:1px solid var(--auc);font-family:'Inter',sans-serif;transition:all .15s}
+.filt:last-child{border-right:none}
+.filt.active,.filt:hover{background:var(--pr);color:var(--br)}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.post{border-top:1px solid var(--auc);padding-top:1.25rem}
+.post-linha{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--au);margin-bottom:.5rem}
+.post h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;line-height:1.5;margin-bottom:.5rem}
+.post p{font-size:12px;color:var(--gz);line-height:1.7;margin-bottom:.75rem}
+.post-meta{font-size:11px;color:var(--gc)}
+
+/* CONTATO */
+.contato-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2rem;margin-top:1.5rem}
+.contato-item h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--au);margin-bottom:.5rem}
+.contato-item p,.contato-item a{font-size:13px;color:#3A3A30;text-decoration:none;line-height:1.6}
+.contato-item a:hover{color:var(--au)}
+.social{display:flex;gap:12px;margin-top:2rem}
+.soc{width:36px;height:36px;border:1px solid var(--auc);display:flex;align-items:center;justify-content:center;color:var(--gz);font-size:18px;text-decoration:none;transition:all .15s}
+.soc:hover{border-color:var(--pr);color:var(--pr)}
+
+/* FOOTER */
+footer{background:var(--pr);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--auc)}
+footer p{font-size:11px;color:var(--gz)}
+footer a{color:var(--gz);text-decoration:none}
+footer a:hover{color:var(--au)}
+
+@media(max-width:600px){
+  nav{padding:0 1rem}
+  .nav-links{gap:1rem}
+  .nav-links a{font-size:10px}
+  section{padding:3rem 1.25rem}
+  .hero{padding:3rem 1.25rem}
+  .linhas-grid{grid-template-columns:1fr}
+  .linha-item{border-right:none;border-bottom:1px solid var(--auc)}
+  .linha-item:last-child{border-bottom:none}
+  footer{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Camenae</div>
+  <div class="nav-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#linhas">Pesquisa</a>
+    <a href="#membros">Membros</a>
+    <a href="#extensao">Extensão</a>
+    <a href="#contato">Contato</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="eyebrow">CNPq · Certificado desde 2016</p>
+  <h1>Cultura, Língua e Literatura <em>Grega e Latina</em></h1>
+  <div class="rule"></div>
+  <div class="hero-inst">
+    <span class="inst-badge">UNEAL · Arapiraca</span>
+    <span style="color:var(--auc)">·</span>
+    <span class="inst-badge">UFRJ · Rio de Janeiro</span>
+  </div>
+  <a class="btn" href="#sobre">Conheça o grupo</a>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section id="sobre">
+  <div class="inner">
+    <p class="lbl">Sobre</p>
+    <h2 class="sec-title">O grupo</h2>
+    <p class="sobre-text">O Camenae é um grupo de pesquisa interinstitucional certificado pelo CNPq, fundado em 2016. Reúne pesquisadores da Universidade Estadual de Alagoas (UNEAL) e da Universidade Federal do Rio de Janeiro (UFRJ), dedicados ao estudo rigoroso da cultura, língua e literatura da Antiguidade Grega e Latina.</p>
+    <p class="sobre-text">Nosso trabalho conecta o legado greco-romano ao presente, investigando como textos, retórica e cultura antiga ressoam e se transformam ao longo do tempo — em pesquisa e em ações de extensão como o projeto Clássicas em Cena.</p>
+    <div class="tags">
+      <span class="tag">Lingüística · Letras</span>
+      <span class="tag">4 pesquisadores doutores</span>
+      <span class="tag">CNPq certificado</span>
+      <span class="tag">UNEAL + UFRJ</span>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section class="alt">
+  <div class="inner">
+    <p class="lbl">Instituições</p>
+    <h2 class="sec-title">Universidades parceiras</h2>
+    <div class="uni-grid">
+      <div class="uni-card">
+        <p class="uni-sigla">UNEAL</p>
+        <h3>Universidade Estadual de Alagoas</h3>
+        <p class="uni-lider">Douglas Gonçalves de Souza <span>· Líder</span></p>
+        <p class="uni-end">Rua Gov. Luiz Cavalcante, s/n · Sala 42<br>Alto do Cruzeiro · Arapiraca, AL · CEP 57312-270</p>
+      </div>
+      <div class="uni-card">
+        <p class="uni-sigla">UFRJ</p>
+        <h3>Universidade Federal do Rio de Janeiro</h3>
+        <p class="uni-lider">Ana Thereza Basílio Vieira <span>· Líder</span></p>
+        <p class="uni-end">Rio de Janeiro, RJ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section id="linhas">
+  <div class="inner">
+    <p class="lbl">Áreas</p>
+    <h2 class="sec-title">Linhas de pesquisa</h2>
+    <div class="linhas-grid">
+      <div class="linha-item">
+        <div class="linha-num">I</div>
+        <h3>Gramática, Retórica e Discurso</h3>
+        <p>Estruturas linguísticas e retóricas nos textos clássicos gregos e latinos.</p>
+        <div class="linha-stats">
+          <div class="linha-stat"><span>2</span>pesquisadores</div>
+          <div class="linha-stat"><span>2</span>estudantes</div>
+        </div>
+      </div>
+      <div class="linha-item">
+        <div class="linha-num">II</div>
+        <h3>Literatura, Cultura e Sociedade</h3>
+        <p>Relações entre produção literária antiga e seus contextos culturais.</p>
+        <div class="linha-stats">
+          <div class="linha-stat"><span>3</span>pesquisadores</div>
+          <div class="linha-stat"><span>12</span>estudantes</div>
+        </div>
+      </div>
+      <div class="linha-item">
+        <div class="linha-num">III</div>
+        <h3>Recepção da Cultura Greco-Romana</h3>
+        <p>Apropriações e ressignificações do legado clássico em períodos posteriores.</p>
+        <div class="linha-stats">
+          <div class="linha-stat"><span>1</span>pesquisador</div>
+          <div class="linha-stat"><span>9</span>estudantes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section id="membros" class="alt">
+  <div class="inner">
+    <p class="lbl">Equipe</p>
+    <h2 class="sec-title">Integrantes</h2>
+    <div class="members-grid" id="membros-grid">
+      <div class="member">
+        <div class="avatar">DG</div>
+        <h4>Douglas Gonçalves de Souza</h4>
+        <p class="role">Pesquisador · Doutor</p>
+        <span class="inst-tag">UNEAL</span>
+        <p class="bio">Líder UNEAL. Língua e literatura latina.</p>
+        <a class="lattes" href="#">Currículo Lattes</a>
+      </div>
+      <div class="member">
+        <div class="avatar">AT</div>
+        <h4>Ana Thereza Basílio Vieira</h4>
+        <p class="role">Pesquisadora · Doutora</p>
+        <span class="inst-tag">UFRJ</span>
+        <p class="bio">Líder UFRJ. Literatura e cultura gregas.</p>
+        <a class="lattes" href="#">Currículo Lattes</a>
+      </div>
+      <div class="member">
+        <div class="avatar">LL</div>
+        <h4>Livia Lindóia Paes Barreto</h4>
+        <p class="role">Pesquisadora · Doutora</p>
+        <span class="inst-tag">UNEAL</span>
+        <p class="bio">Recepção clássica e tradução.</p>
+        <a class="lattes" href="#">Currículo Lattes</a>
+      </div>
+      <div class="member">
+        <div class="avatar">LP</div>
+        <h4>Luiz Pedro da Silva Barbosa</h4>
+        <p class="role">Pesquisador · Doutor</p>
+        <span class="inst-tag">UNEAL</span>
+        <p class="bio">Retórica e discurso na Antiguidade.</p>
+        <a class="lattes" href="#">Currículo Lattes</a>
+      </div>
+      <div class="member">
+        <div class="avatar">AL</div>
+        <h4>Amanda de Lira Santos</h4>
+        <p class="role">Estudante · Mestrado</p>
+        <span class="inst-tag">UNEAL</span>
+        <p class="bio">Pesquisa em andamento.</p>
+        <a class="lattes" href="#">Currículo Lattes</a>
+      </div>
+      <div class="member">
+        <div class="avatar">TM</div>
+        <h4>Thais Montenegro do Patrocinio</h4>
+        <p class="role">Estudante · Mestrado</p>
+        <span class="inst-tag">UNEAL</span>
+        <p class="bio">Pesquisa em andamento.</p>
+        <a class="lattes" href="#">Currículo Lattes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section id="extensao">
+  <div class="inner">
+    <p class="lbl">Extensão</p>
+    <h2 class="sec-title">Projetos</h2>
+    <div class="ext-grid">
+      <div class="ext-card">
+        <i class="ti ti-masks-theater"></i>
+        <h3>Clássicas em Cena</h3>
+        <p>Projeto de extensão que promove exibições e discussões de filmes baseados em obras clássicas gregas e latinas. Realizado no Campus I da UNEAL em Arapiraca.</p>
+      </div>
+      <div class="ext-card">
+        <i class="ti ti-book-2"></i>
+        <h3>Projetos de Pesquisa</h3>
+        <p>Investigações em andamento nas três linhas do grupo, com participação de estudantes de graduação, mestrado e doutorado da UNEAL e UFRJ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section id="blog" class="alt">
+  <div class="inner">
+    <p class="lbl">Publicações</p>
+    <h2 class="sec-title" style="margin-bottom:1.5rem">Pesquisas</h2>
+    <div class="filters">
+      <button class="filt active" onclick="filtrar(this,'todos')">Todos</button>
+      <button class="filt" onclick="filtrar(this,'gramatica')">Gramática</button>
+      <button class="filt" onclick="filtrar(this,'literatura')">Literatura</button>
+      <button class="filt" onclick="filtrar(this,'recepcao')">Recepção</button>
+    </div>
+    <div class="blog-grid" id="blog-grid">
+      <div class="post" data-linha="gramatica">
+        <p class="post-linha">Gramática e Retórica</p>
+        <h3>A arte da persuasão em Cícero: estruturas retóricas no Pro Milone</h3>
+        <p>Análise das estratégias argumentativas e ornamentação retórica no discurso de defesa de Milão.</p>
+        <span class="post-meta">Douglas G. de Souza · 2024</span>
+      </div>
+      <div class="post" data-linha="literatura">
+        <p class="post-linha">Literatura e Cultura</p>
+        <h3>Mulheres e poder na tragédia grega: Medeia e Clitemnestra</h3>
+        <p>Estudo comparativo das representações femininas de poder em Eurípides e Ésquilo.</p>
+        <span class="post-meta">Ana Thereza B. Vieira · 2024</span>
+      </div>
+      <div class="post" data-linha="recepcao">
+        <p class="post-linha">Recepção Clássica</p>
+        <h3>Virgílio no Brasil: leituras da Eneida na literatura oitocentista</h3>
+        <p>Mapeamento das apropriações do épico virgiliano em autores e periódicos brasileiros.</p>
+        <span class="post-meta">Livia L. P. Barreto · 2023</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<section id="contato">
+  <div class="inner">
+    <p class="lbl">Fale conosco</p>
+    <h2 class="sec-title">Contato</h2>
+    <div class="contato-grid">
+      <div class="contato-item">
+        <h4>E-mail</h4>
+        <a href="mailto:gpcamenae.uneal@gmail.com">gpcamenae.uneal@gmail.com</a>
+      </div>
+      <div class="contato-item">
+        <h4>Telefone</h4>
+        <p>(21) 99211-2656</p>
+      </div>
+      <div class="contato-item">
+        <h4>UNEAL</h4>
+        <p>Sala 42 · Arapiraca, AL</p>
+      </div>
+      <div class="contato-item">
+        <h4>CNPq</h4>
+        <a href="https://dgp.cnpq.br/dgp/espelhogrupo/215769" target="_blank">Ver perfil ↗</a>
+      </div>
+    </div>
+    <div class="social">
+      <a class="soc" href="https://instagram.com/gp.camenae" target="_blank" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+      <a class="soc" href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+      <a class="soc" href="#" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+    </div>
+  </div>
+</section>
+
+<div class="friso"><svg width="100%" height="22" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="mk" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+<path d="
+M1,1 L21,1
+M1,21 L21,21
+M1,1 L1,21
+M21,1 L21,21
+M3,3 L19,3
+M3,19 L19,19
+M3,3 L3,19
+M19,3 L19,19
+M5,5 L17,5
+M5,17 L17,17
+M5,5 L5,17
+M17,5 L17,17
+M7,7 L15,7
+M7,15 L15,15
+M7,7 L7,15
+M15,7 L15,15
+" stroke="#88887F" stroke-width="1" fill="none"/>
+</pattern>
+</defs>
+<rect width="100%" height="22" fill="url(#mk)"/>
+</svg></div>
+
+<footer>
+  <div class="footer-logo">Camenae</div>
+  <p>© 2025 · UNEAL · UFRJ · <a href="https://instagram.com/gp.camenae" target="_blank">@gp.camenae</a></p>
+</footer>
+
+<script>
+function filtrar(btn,linha){
+  document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.post').forEach(c=>{
+    c.style.display=(linha==='todos'||c.dataset.linha===linha)?'block':'none';
+  });
+}
+</script>
+</body>
+</html>
